@@ -11,7 +11,7 @@ import java.io.InputStream;
 public class FenetreGraphique extends JFrame {
     private JButton bouton1;
     private JButton bouton2;
-
+    private JPanel f;
 
     public FenetreGraphique() throws IOException, FontFormatException {
         // Configuration de la fenêtre principale
@@ -28,7 +28,10 @@ public class FenetreGraphique extends JFrame {
         //Agrandir la police
         label.setFont(policePerso.deriveFont(200f));
         label.setHorizontalAlignment(JLabel.CENTER);
-        add(label, BorderLayout.NORTH);
+
+        JLabel label2 = new JLabel("CHOISISSEZ VOTRE MODE DE JEU:");
+        label2.setFont(policePerso.deriveFont(100f));
+        label2.setHorizontalAlignment(JLabel.CENTER);
 
         // Création des boutons
         bouton1 = new JButton("PLAYER VS PLAYER"){
@@ -40,7 +43,7 @@ public class FenetreGraphique extends JFrame {
         }
         };
         bouton1.setFont(policePerso); // Appliquer la police personnalisée au bouton 1
-        bouton1.setPreferredSize(new Dimension(500, 200));
+        bouton1.setPreferredSize(new Dimension(500, 100));
         //enlever le contour du bouton
         bouton1.setBorderPainted(false);
 
@@ -54,19 +57,32 @@ public class FenetreGraphique extends JFrame {
             }
         };
         bouton2.setFont(policePerso);
-        bouton2.setPreferredSize(new Dimension(500, 200));
+        bouton2.setPreferredSize(new Dimension(500, 100));
         bouton2.setBorderPainted(false);
         bouton2.setFocusPainted(false);
 
-        // Création d'un panneau pour contenir les boutons
-        JPanel panel = new JPanel();
-        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 450));
-        panel.add(bouton1);
-        panel.add(bouton2);
+        f = new JPanel();
+        f.setLayout(new BorderLayout());
+        label.setHorizontalAlignment(JLabel.CENTER);
+        label2.setHorizontalAlignment(JLabel.CENTER);
 
-        // Ajout du panneau à la fenêtre principale
-        add(panel);
+// Ajouter les labels dans le centre du JPanel
+        f.add(label, BorderLayout.CENTER);
+        f.add(label2, BorderLayout.SOUTH);
+        f.setLayout(new BoxLayout(f, BoxLayout.Y_AXIS));
 
+// Ajouter des espaces entre les composants
+        f.add(Box.createRigidArea(new Dimension(0, 75))); // Ajouter un espace de 100 pixels en haut du JPanel
+        f.add(label);
+        f.add(Box.createRigidArea(new Dimension(0, 75))); // Ajouter un espace de 50 pixels entre label et bouton1
+        f.add(label2);
+        f.add(Box.createRigidArea(new Dimension(0, 75))); // Ajouter un espace de 50 pixels entre label2 et bouton2
+        f.add(bouton1);
+        f.add(Box.createRigidArea(new Dimension(0, 75))); // Ajouter un espace de 50 pixels entre bouton1 et bouton2
+        f.add(bouton2);
+
+        //Ajouter le JPanel dans la fenetre
+        add(f, BorderLayout.CENTER);
 
         // Ajout des écouteurs d'événements pour les boutons
         bouton1.addActionListener(new ActionListener() {
@@ -106,7 +122,8 @@ class FenetreSecondaire extends JFrame {
         // Configuration de la fenêtre secondaire
         setTitle(title);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        setSize(200, 200);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
         setLocationRelativeTo(null); // Centre la fenêtre sur l'écran
     }
 }

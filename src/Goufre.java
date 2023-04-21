@@ -1,4 +1,4 @@
-import Modele.*;
+import modele.*;
 import IA.*;
 import Global.*;
 

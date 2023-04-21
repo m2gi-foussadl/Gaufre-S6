@@ -1,4 +1,4 @@
-package Modele;
+package modele;
 
 import Global.Config;
 

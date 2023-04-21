@@ -13,31 +13,26 @@ public class Plateau {
         col = 5;
         row = 5;
         fini = false;
+
+        plateau = new int[row][col];
         for (int i = 0; i < row; i++) {
-
-            for (int j = 0; j < col; j++) {
-                plateau[i][j]=Config.GOUFRE;
-            }
-
+            Arrays.fill(plateau[i], Config.GOUFRE);
         }
-    }//
+    }
 
     public Plateau(int c, int r) {
         col = c;
         row = r;
         fini = false;
+
+        plateau = new int[row][col];
         for (int i = 0; i < row; i++) {
-
-            for (int j = 0; j < col; j++) {
-                plateau[i][j]=Config.GOUFRE;
-            }
-
+            Arrays.fill(plateau[i], Config.GOUFRE);
         }
     }
 
     public Plateau(String fichier) throws Exception{
         super();
-
 
     }
 

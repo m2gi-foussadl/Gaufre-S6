@@ -10,16 +10,16 @@ public class MoyenIA implements IA {
 
     @Override
     public Coup jouer() {
-        if (p.get(0).get(1) == GOUFRE && p.get(1).get(0) == VIDE)
+        if (p.get(0).get(1) == Config.GOUFRE && p.get(1).get(0) == Config.VIDE)
             return new Coup(0, 1);
-        else if (p.get(1).get(0) == GOUFRE && p.get(0).get(1) == VIDE)
+        else if (p.get(1).get(0) == Config.GOUFRE && p.get(0).get(1) == Config.VIDE)
             return new Coup(1, 0);
         else {
             ArrayList<Coup> coupsPossibles = new ArrayList<>();
             Coup c0, c1 = null, c2 = null;
             for (int i = 0; i < p.size(); i++)
                 for (int j = 0; j < p.get(i).size(); j++)
-                    if (p.get(i).get(j) == GOUFRE) {
+                    if (p.get(i).get(j) == Config.GOUFRE) {
                         c0 = new Coup(i, j);
                         if (i == 0 && j == 1)
                             c1 = c0;

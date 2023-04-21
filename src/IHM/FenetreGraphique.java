@@ -1,6 +1,5 @@
 package src.IHM;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -10,6 +9,9 @@ import java.io.IOException;
 import java.io.InputStream;
 
 public class FenetreGraphique extends JFrame {
+    private JButton bouton1;
+    private JButton bouton2;
+    private JPanel f;
 
     public FenetreGraphique() throws IOException, FontFormatException {
         // Configuration de la fenêtre principale
@@ -32,7 +34,7 @@ public class FenetreGraphique extends JFrame {
         label2.setHorizontalAlignment(JLabel.CENTER);
 
         // Création des boutons
-        JButton bouton1 = new JButton("PLAYER VS PLAYER"){
+        bouton1 = new JButton("PLAYER VS PLAYER"){
             @Override
             protected void paintComponent(Graphics g) {
             Graphics2D g2 = (Graphics2D) g;
@@ -46,7 +48,7 @@ public class FenetreGraphique extends JFrame {
         bouton1.setBorderPainted(false);
 
 
-        JButton bouton2 = new JButton("PLAYER VS IA") {
+        bouton2 = new JButton("PLAYER VS IA") {
             @Override
             protected void paintComponent(Graphics g) {
                 Graphics2D g2 = (Graphics2D) g;
@@ -59,7 +61,7 @@ public class FenetreGraphique extends JFrame {
         bouton2.setBorderPainted(false);
         bouton2.setFocusPainted(false);
 
-        JPanel f = new JPanel();
+        f = new JPanel();
         f.setLayout(new BorderLayout());
         label.setHorizontalAlignment(JLabel.CENTER);
         label2.setHorizontalAlignment(JLabel.CENTER);
@@ -87,7 +89,8 @@ public class FenetreGraphique extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action à effectuer lorsque le bouton 1 est cliqué
-                new FenetreJeu();
+                FenetreSecondaire fenetre2 = new FenetreSecondaire("Fenêtre 2");
+                fenetre2.setVisible(true);
             }
         });
 
@@ -95,7 +98,8 @@ public class FenetreGraphique extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action à effectuer lorsque le bouton 2 est cliqué
-                new FenetreJeu();
+                FenetreSecondaire fenetre3 = new FenetreSecondaire("Fenêtre 3");
+                fenetre3.setVisible(true);
             }
         });
 
@@ -104,8 +108,22 @@ public class FenetreGraphique extends JFrame {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize(); // Obtenir la résolution de l'écran
         setSize(screenSize.width, screenSize.height); // Adapter la taille de la fenêtre à la résolution de l'écran
         setLocationRelativeTo(null); // Centre la fenêtre sur l'écran
-        setVisible(true);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
+    public static void main(String[] args) throws IOException, FontFormatException {
+        // Création et affichage de la fenêtre principale
+        FenetreGraphique fenetre1 = new FenetreGraphique();
+        fenetre1.setVisible(true);
     }
 }
 
+class FenetreSecondaire extends JFrame {
+    public FenetreSecondaire(String title) {
+        // Configuration de la fenêtre secondaire
+        setTitle(title);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        setSize(screenSize.width, screenSize.height);
+        setLocationRelativeTo(null); // Centre la fenêtre sur l'écran
+    }
+}

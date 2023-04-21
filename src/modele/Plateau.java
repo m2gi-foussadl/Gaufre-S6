@@ -1,9 +1,7 @@
-package modele;
+package Modele;
 
 import Global.Config;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
 import java.util.*;
 
 public class Plateau {
@@ -35,40 +33,41 @@ public class Plateau {
         }
     }
 
-    public Plateau(String fichier) throws Exception{
+    public Plateau(String fichier) {
         super();
-
     }
 
-    public void mange(int c, int r) {
-        if (c == 0 && r == 0) {
-            //match fini
+    public void mange(Coup c) {
+        if (c.x == 0 && c.y == 0)
             fini = true;
-        }
-
-        for (int i = 0; i < row; i++) {
-            for (int j = 0; j < col; j++) {
-                if ((i >= r) && (j >= c)) {
+        for (int i = 0; i < row; i++)
+            for (int j = 0; j < col; j++)
+                if ((i >= c.x) && (j >= c.y))
                     plateau[i][j]= Config.VIDE;
-                }
-            }
-        }
-
     }
 
     public boolean estTermine() {
         return fini;
     }
 
-    public int Lignes() {
+    public int lignes() {
         return row;
     }
 
-    public int Colonnes() {
+    public int colonnes() {
         return col;
     }
 
-    public int[][] Plateau() {
+    public int[][] grille() {
         return plateau;
+    }
+
+    public void afficher() {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print(plateau[i][j] + " ");
+            }
+            System.out.println();
+        }
     }
 }

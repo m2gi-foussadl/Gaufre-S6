@@ -1,6 +1,6 @@
 package IHM;
 
-import modele.Plateau;
+import Modele.Plateau;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -35,10 +35,10 @@ public class PlateauGraphique extends JComponent {
 
         int taille = Math.min(getSize().width, getSize().height);
 
-        int tailleCases = taille / plateau.Lignes();
+        int tailleCases = taille / plateau.lignes();
 
-        for(int i = 0; i < plateau.Colonnes(); i++) {
-            for(int j = 0; j < plateau.Lignes(); j++) {
+        for(int i = 0; i < plateau.colonnes(); i++) {
+            for(int j = 0; j < plateau.lignes(); j++) {
                 drawable.drawImage(img, i * tailleCases, j * tailleCases, tailleCases, tailleCases, null);
             }
         }

@@ -1,4 +1,7 @@
-import IHM.FenetreJeu;
+package src;
+
+
+import src.IHM.FenetreGraphique;
 
 import java.awt.*;
 import java.io.IOException;
@@ -6,6 +9,6 @@ import java.io.IOException;
 public class Goufre {
     public static void main(String[] args) throws IOException, FontFormatException {
         System.out.println("Miam miam miam");
-        new FenetreJeu();
+        new FenetreGraphique();
     }
 }

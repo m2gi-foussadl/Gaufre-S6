@@ -3,7 +3,7 @@ import java.io.FileReader;
 import java.util.*;
 
 public class Plateau {
-    ArrayList<ArrayList<Integer>> plateau;
+    int[][] plateau;
     int col;
     int row;
 
@@ -14,11 +14,11 @@ public class Plateau {
         row = 5;
         fini = false;
         for (int i = 0; i < row; i++) {
-            ArrayList<Integer> cols = new ArrayList<>();
+
             for (int j = 0; j < col; j++) {
-                cols.add(Config.GOUFRE);
+                plateau[i][j]=Config.GOUFRE;
             }
-            plateau.add(cols);
+
         }
     }//
 
@@ -27,28 +27,18 @@ public class Plateau {
         row = r;
         fini = false;
         for (int i = 0; i < row; i++) {
-            ArrayList<Integer> cols = new ArrayList<>();
+
             for (int j = 0; j < col; j++) {
-                cols.add(Config.GOUFRE);
+                plateau[i][j]=Config.GOUFRE;
             }
 
-            plateau.add(cols);
         }
     }
 
     public Plateau(String fichier) throws Exception{
-        Scanner scn = new Scanner(fichier);
-        while (scn.hasNextLine()){
-            String line = scn.nextLine();
-            String[] f_cols = line.split(" ");
-            ArrayList<Integer> cols = new ArrayList<>();
-            for(String c : f_cols){
-                cols.add(Integer.parseInt(c));
-            }
-            plateau.add(cols);
-        }
-        row = plateau.size();
-        col = plateau.get(0).size();
+        super();
+
+
     }
 
     public void mange(int c, int r) {
@@ -60,7 +50,7 @@ public class Plateau {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 if ((i >= r) && (j >= c)) {
-                    plateau.get(i).set(j, Config.VIDE);
+                    plateau[i][j]= Config.VIDE;
                 }
             }
         }

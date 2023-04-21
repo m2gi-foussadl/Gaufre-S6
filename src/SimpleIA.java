@@ -16,7 +16,7 @@ public class SimpleIA implements IA {
             for (int j = 0; j < p.get(i).size(); j++) {
 
                 int value = p.get(i).get(j);
-                if (value == GOUFRE) {
+                if (value == Config.GOUFRE) {
                     pairs[index][0] = i; // Stocke la valeur de i dans la première colonne de la paire
                     pairs[index][1] = j; // Stocke la valeur de j dans la deuxième colonne de la paire
                     index++; // Incrémente l'index du tableau de paires d'entiers

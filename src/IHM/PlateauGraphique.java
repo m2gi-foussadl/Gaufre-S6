@@ -1,5 +1,7 @@
 package IHM;
 
+import modele.Plateau;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -11,6 +13,8 @@ public class PlateauGraphique extends JComponent {
 
     Image img;
 
+    Plateau plateau;
+
     public PlateauGraphique() {
         InputStream in = null;
         try {
@@ -21,21 +25,21 @@ public class PlateauGraphique extends JComponent {
         } catch (Exception e) {
             System.out.println("J'y arrive po");
         }
+
+        plateau = new Plateau();
     }
 
     @Override
     public void paintComponent(Graphics g) {
         Graphics2D drawable = (Graphics2D) g;
 
-        int largeur = getSize().width;
-        int hauteur = getSize().height;
+        int taille = Math.min(getSize().width, getSize().height);
 
-        int nbX = largeur / 50;
-        int nbY = hauteur / 50;
+        int tailleCases = taille / plateau.Lignes();
 
-        for(int i = 0; i < nbX; i++) {
-            for(int j = 0; j < nbY; j++) {
-                drawable.drawImage(img, i * 50, j * 50, 50, 50, null);
+        for(int i = 0; i < plateau.Colonnes(); i++) {
+            for(int j = 0; j < plateau.Lignes(); j++) {
+                drawable.drawImage(img, i * tailleCases, j * tailleCases, tailleCases, tailleCases, null);
             }
         }
     }

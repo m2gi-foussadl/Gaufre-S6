@@ -1,3 +1,7 @@
+package modele;
+
+import Global.Config;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.*;
@@ -54,5 +58,17 @@ public class Plateau {
 
     public boolean estTermine() {
         return fini;
+    }
+
+    public int Lignes() {
+        return row;
+    }
+
+    public int Colonnes() {
+        return col;
+    }
+
+    public int[][] Plateau() {
+        return plateau;
     }
 }

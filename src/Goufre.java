@@ -1,4 +1,3 @@
-import IHM.FenetreGraphique;
 import IHM.FenetreJeu;
 
 import java.awt.*;

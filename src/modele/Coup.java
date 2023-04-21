@@ -1,3 +1,5 @@
+package modele;
+
 public class Coup {
     int x, y;
     Coup(int x, int y) {

@@ -81,6 +81,14 @@ public class Plateau {
         return turnPlayer;
     }
 
+    public int[][] copie(){
+        int[][] newtab = new int[row][col];;
+        for (int i = 0; i < row; i++)
+            newtab[i] = plateau[i].clone();
+
+        return newtab;
+    }
+
     public void afficher() {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {

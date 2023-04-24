@@ -1,7 +1,10 @@
 package Hist;
 
-import modele.Coup;
-import modele.Plateau;
+import Modele.Coup;
+import Modele.Plateau;
+import java.io.File;
+import java.io.PrintWriter;
+import java.util.Scanner;
 
 import java.util.Stack;
 public class Historique {
@@ -42,14 +45,73 @@ public class Historique {
             System.out.println("Pas de coup suivant enregister");
         }
     }
-    public void sauvegarder(){
-        while(!pil_passer.empty()){
-            pil_passer.pop();
+    public void sauvegarder(String fichier, Plateau p) throws Exception {
+        // Init fichier
+        File f = new File(fichier);
+        f.setReadable(true);
+        f.setWritable(true);
+        PrintWriter w_f = new PrintWriter(f);
+
+        // Init var
+        String sauv_data = "";
+        Element_pile_histo elem_hist;
+
+        w_f.println(p.colonnes() + " " + p.lignes() +" ");
+
+        // On vide la pile des coup dans pil_passer pour commencer par ecrire le dernier coup dans le fichier
+        while(!pil_futur.empty()){
+            pil_passer.push(pil_futur.pop());
         }
-        // vider les coup de la pile futur dans le fichier
+
+        //On creer le String de data de sauvegarde (i.e la liste des coup réaliser)
+        while(!pil_passer.empty()){
+            elem_hist = pil_passer.pop();
+            sauv_data += elem_hist.get_save_string() + " ";
+        }
+        w_f.println(sauv_data);
+        w_f.close();
     }
-    public void charger(){
-        // lire et jouer les coup du fichier dans l'ordre
+    public Plateau charger(String fichier) {
+
+        int c, r, col, row;
+        Plateau plat;
+        Scanner sc_f;
+
+        // Init fichier
+        try {
+            sc_f = new Scanner(new File(fichier));
+        }catch (Exception E){
+            System.out.println(fichier + " isn't accesible");
+            return null;
+        }
+
+        // Tant que le fichier n'est pas vide, vérifie que le fichier est comforme et joue si il trouve un coup
+        try {
+            col = sc_f.nextInt();
+            row = sc_f.nextInt();
+            plat = new Plateau(col,row);
+            while(sc_f.hasNext()) {
+                r = sc_f.nextInt();
+                c = sc_f.nextInt();
+                Coup coup = new Coup(r,c);
+                Coup[] cont = new Coup[row];
+                for (int i = 0; i<row; i++){
+                    r = sc_f.nextInt();
+                    c = sc_f.nextInt();
+                    cont[i] = new Coup(r, c);
+                }
+                pil_futur.push(new Element_pile_histo(coup,cont));
+            }
+        }catch (Exception E) {
+            System.out.println(fichier + " isn't a save file");
+            return null;
+        }
+
+        while(!pil_futur.empty()){
+            reculer();
+        }
+        sc_f.close();
+        return plat;
     }
 
 }

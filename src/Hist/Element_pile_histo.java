@@ -1,8 +1,8 @@
 package Hist;
 
 import Global.Config;
-import Modele.Coup;
-import Modele.Plateau;
+import Modele.*;
+
 
 public class Element_pile_histo {
     Coup[] contours;

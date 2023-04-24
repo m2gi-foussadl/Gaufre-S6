@@ -3,7 +3,7 @@ package Hist;
 import java.util.Stack;
 
 import Global.Config;
-import modele.*;
+import Modele.*;
 
 public class Pile_Histo {
     Stack<Element_pile_histo> pile;

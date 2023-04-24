@@ -37,7 +37,7 @@ public class Plateau {
 
     public Plateau(String fichier) {
         hist = new Historique();
-        this.hist.charger(fichier);
+        this.hist.charger(fichier,this);
     }
 
     public void mange(Coup c) {
@@ -82,7 +82,7 @@ public class Plateau {
     }
 
     public int[][] copie(){
-        int[][] newtab = new int[row][col];;
+        int[][] newtab = new int[row][col];
         for (int i = 0; i < row; i++)
             newtab[i] = plateau[i].clone();
 

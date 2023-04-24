@@ -98,10 +98,10 @@ public class Historique {
         w_f.close();
     }
 
-    public Plateau charger(String fichier) {
+    public void charger(String fichier, Plateau plat) {
 
         int c, r, col, row;
-        Plateau plat;
+
         Scanner sc_f;
 
         // Init fichier
@@ -109,7 +109,7 @@ public class Historique {
             sc_f = new Scanner(new File(fichier));
         }catch (Exception E){
             System.out.println(fichier + " isn't accesible");
-            return null;
+            return;
         }
 
         // Tant que le fichier n'est pas vide, vérifie que le fichier est comforme et joue si il trouve un coup
@@ -131,13 +131,13 @@ public class Historique {
             }
         }catch (Exception E) {
             System.out.println(fichier + " isn't a save file");
-            return null;
+            return;
         }
 
         while(!pil_futur.empty()){
             reculer(plat);
         }
         sc_f.close();
-        return plat;
+
     }
 }

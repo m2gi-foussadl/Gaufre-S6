@@ -1,5 +1,6 @@
 package Hist;
 
+import Global.Config;
 import Modele.Coup;
 import Modele.Plateau;
 import java.io.File;
@@ -29,19 +30,42 @@ public class Historique {
         }
     }
 
-    public void reculer(){
+    public void reculer(Plateau p){
         if (!pil_passer.empty()){
             pil_futur.push(pil_passer.pop());
             // mettre a jour le plateau puis le renvoyer (procédure "manger" inverser puis aplication du tableau)
+            int c_x = this.pil_futur.peek().coup.get_x();
+            int c_y = this.pil_futur.peek().coup.get_y();
+            for (int i = 0; i < p.lignes(); i++)
+                for (int j = 0; j < p.colonnes(); j++)
+                    if ((i >= c_x) && (j >= c_y))
+                        p.grille()[i][j]= Config.GOUFRE;
+
+            Coup[] restaure = pil_passer.peek().contours;
+
+            for (Coup c: restaure ) {
+                for (int i = 0; i < p.lignes(); i++)
+                    for (int j = 0; j < p.colonnes(); j++)
+                        if ((i >= c.get_x()) && (j >= c.get_y()))
+                            p.grille()[i][j]= Config.VIDE;
+            }
+            p.changeTurnPlayer();
+
         }else{
             System.out.println("Pas de coup précedent enregister");
         }
     }
-
-    public void avancer() {
+    public void avancer(Plateau p) {
         if (!pil_futur.empty()) {
             pil_passer.push(pil_futur.pop());
             // mettre a jour le plateau puis le renvoyer (procédure "manger" inverser puis aplication du tableau)
+            int c_x = this.pil_passer.peek().coup.get_x();
+            int c_y = this.pil_passer.peek().coup.get_y();
+            for (int i = 0; i < p.lignes(); i++)
+                for (int j = 0; j < p.colonnes(); j++)
+                    if ((i >= c_x) && (j >= c_y))
+                        p.grille()[i][j]= Config.VIDE;
+            p.changeTurnPlayer();
         } else {
             System.out.println("Pas de coup suivant enregister");
         }

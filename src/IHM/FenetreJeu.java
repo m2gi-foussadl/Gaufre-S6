@@ -12,29 +12,37 @@ public class FenetreJeu {
 
     public FenetreJeu() {
         frame = new JFrame("Jeu en cours");
-        frame.setLayout(new BorderLayout());
+        frame.setSize(new Dimension(1500, 800));
+
+        JPanel panel = (JPanel) frame.getContentPane();
+        panel.setLayout(new GridLayout(1, 2, 20, 0));
+        panel.setBackground(Color.white);
+
+        plateauGraphique = new PlateauGraphique(this);
+        frame.addMouseListener(plateauGraphique);
+        panel.add(plateauGraphique);
 
         menu = new MenuJeu(this);
-        menu.setSize(new Dimension(frame.getWidth() / 3, frame.getHeight()));
-        frame.add(menu, BorderLayout.LINE_END);
-
-        plateauGraphique = new PlateauGraphique();
-        frame.add(plateauGraphique, BorderLayout.CENTER);
+        panel.add(menu);
 
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(new Dimension(1500, 800));
         frame.setVisible(true);
     }
 
-    public void annuler() {
+    public void refresh() {
+        plateauGraphique.repaint();
+        menu.refresh(this);
+    }
 
+    public void annuler() {
+        refresh();
     }
 
     public void refaire() {
-
+        refresh();
     }
 
     public void recommencer() {
-
+        refresh();
     }
 }

@@ -1,8 +1,8 @@
 package IHM;
 
 import Global.Config;
-import modele.Coup;
-import modele.Plateau;
+import Modele.Coup;
+import Modele.Plateau;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -21,7 +21,10 @@ public class PlateauGraphique extends JComponent implements MouseListener {
 
     int tailleCases;
 
-    public PlateauGraphique() {
+    FenetreJeu fenetreJeu;
+
+    public PlateauGraphique(FenetreJeu fenetreJeu) {
+        this.fenetreJeu = fenetreJeu;
         InputStream in = null;
         try {
             in = new FileInputStream("res/Mur.png");
@@ -33,7 +36,6 @@ public class PlateauGraphique extends JComponent implements MouseListener {
         }
 
         plateau = new Plateau();
-        setBounds(0, 500, 0, 500);
     }
 
     @Override
@@ -62,6 +64,7 @@ public class PlateauGraphique extends JComponent implements MouseListener {
         System.out.println("Case correspondante : " + ligne + " " + colonne);
 
         plateau.mange(new Coup(colonne, ligne));
+        fenetreJeu.refresh();
         repaint();
     }
 

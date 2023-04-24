@@ -37,7 +37,7 @@ public class Plateau {
 
     public Plateau(String fichier) {
         hist = new Historique();
-        plateau = hist.charger(fichier);
+        this.hist.charger(fichier);
     }
 
     public void mange(Coup c) {

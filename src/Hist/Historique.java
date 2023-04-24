@@ -98,10 +98,10 @@ public class Historique {
         w_f.close();
     }
 
-    public  int[][] charger(String fichier) {
+    public Plateau charger(String fichier) {
 
         int c, r, col, row;
-        int[][] plat;
+        Plateau plat;
         Scanner sc_f;
 
         // Init fichier
@@ -116,7 +116,7 @@ public class Historique {
         try {
             col = sc_f.nextInt();
             row = sc_f.nextInt();
-            plat = new int[col][row];
+            plat = new Plateau(col,row);
             while(sc_f.hasNext()) {
                 r = sc_f.nextInt();
                 c = sc_f.nextInt();
@@ -135,7 +135,7 @@ public class Historique {
         }
 
         while(!pil_futur.empty()){
-            reculer();
+            reculer(plat);
         }
         sc_f.close();
         return plat;

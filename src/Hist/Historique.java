@@ -20,7 +20,6 @@ public class Historique {
         this.pil_futur = new Stack<Element_pile_histo>();
     }
 
-    // push, pop, peek, empty
     public void ajouter(Coup c, Plateau p){
         Element_pile_histo elem = new Element_pile_histo(c.get_x(), c.get_y(), p);
         pil_passer.push(elem);
@@ -29,6 +28,7 @@ public class Historique {
             pil_futur.pop();
         }
     }
+
     public void reculer(){
         if (!pil_passer.empty()){
             pil_futur.push(pil_passer.pop());
@@ -37,6 +37,7 @@ public class Historique {
             System.out.println("Pas de coup précedent enregister");
         }
     }
+
     public void avancer() {
         if (!pil_futur.empty()) {
             pil_passer.push(pil_futur.pop());
@@ -45,6 +46,7 @@ public class Historique {
             System.out.println("Pas de coup suivant enregister");
         }
     }
+
     public void sauvegarder(String fichier, Plateau p) throws Exception {
         // Init fichier
         File f = new File(fichier);
@@ -71,6 +73,7 @@ public class Historique {
         w_f.println(sauv_data);
         w_f.close();
     }
+
     public Plateau charger(String fichier) {
 
         int c, r, col, row;
@@ -113,5 +116,4 @@ public class Historique {
         sc_f.close();
         return plat;
     }
-
 }

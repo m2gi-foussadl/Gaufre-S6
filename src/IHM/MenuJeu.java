@@ -1,44 +1,53 @@
 package IHM;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuJeu extends JPanel {
 
-    public MenuJeu() {
-        setLayout(new GridBagLayout());
+    JLabel messageTour;
+    JTextArea historique;
+    JButton annuler, refaire, recommencer;
 
-        JLabel tourJoueur = new JLabel("Tour du joueur 1");
-        GridBagConstraints constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.gridy = 0;
-        add(tourJoueur, constraints);
+    public MenuJeu(FenetreJeu fenetreJeu) {
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        JTextArea historique = new JTextArea("Loremmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm");
+        messageTour = new JLabel("Tour du joueur 1");
+        add(messageTour);
+
+        historique = new JTextArea();
         historique.setEditable(false);
-        historique.setLineWrap(true);
-        constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.gridy = 1;
-        constraints.gridheight = 2;
-        add(historique, constraints);
+        add(historique);
 
-        JButton annuler = new JButton("Annuler");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.gridy = 3;
-        add(annuler, constraints);
+        annuler = new JButton("Annuler");
+        annuler.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                fenetreJeu.annuler();
+                System.out.println("On annule");
+            }
+        });
+        add(annuler);
 
-        JButton refaire = new JButton("Refaire");
-        constraints = new GridBagConstraints();
-        constraints.gridx = 0;
-        constraints.gridy = 4;
-        add(refaire, constraints);
-    }
+        refaire = new JButton("Refaire");
+        refaire.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                fenetreJeu.refaire();
+                System.out.println("On refais");
+            }
+        });
+        add(refaire);
 
-    public void updateSize(Dimension size) {
-
+        recommencer = new JButton("Recommencer");
+        recommencer.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                fenetreJeu.recommencer();
+                System.out.println("On recommence");
+            }
+        });
+        add(recommencer);
     }
 }

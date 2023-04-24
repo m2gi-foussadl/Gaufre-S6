@@ -24,7 +24,7 @@ public class PlateauGraphique extends JComponent implements MouseListener {
     public PlateauGraphique() {
         InputStream in = null;
         try {
-            in = new FileInputStream("Mur.png");
+            in = new FileInputStream("res/Mur.png");
             img = ImageIO.read(in);
         } catch (FileNotFoundException e) {
             System.out.println("Lol");
@@ -33,6 +33,7 @@ public class PlateauGraphique extends JComponent implements MouseListener {
         }
 
         plateau = new Plateau();
+        setBounds(0, 500, 0, 500);
     }
 
     @Override
@@ -44,9 +45,9 @@ public class PlateauGraphique extends JComponent implements MouseListener {
         tailleCases = taille / plateau.lignes();
 
         int[][] cases = plateau.grille();
-        for(int i = 0; i < plateau.colonnes(); i++) {
-            for(int j = 0; j < plateau.lignes(); j++) {
-                if(cases[i][j] != Config.VIDE) {
+        for (int i = 0; i < plateau.colonnes(); i++) {
+            for (int j = 0; j < plateau.lignes(); j++) {
+                if (cases[i][j] != Config.VIDE) {
                     drawable.drawImage(img, i * tailleCases, j * tailleCases, tailleCases, tailleCases, null);
                 }
             }

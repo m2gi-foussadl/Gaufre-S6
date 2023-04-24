@@ -1,4 +1,4 @@
-import modele.*;
+import Modele.*;
 import IA.*;
 import Global.*;
 
@@ -12,8 +12,9 @@ public class Goufre {
         else if (args.length == 2)
             p = new Plateau(Integer.parseInt(args[0]), Integer.parseInt(args[1]));
         else {
-            System.out.println("Usages: java Goufre <col> <row>");
+            System.out.println("Usages: java Goufre");
             System.out.println("        java Goufre <filename>");
+            System.out.println("        java Goufre <col> <row>");
             return;
         }
 

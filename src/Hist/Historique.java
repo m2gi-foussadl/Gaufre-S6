@@ -1,7 +1,7 @@
 package Hist;
 
-import modele.Coup;
-import modele.Plateau;
+import Modele.Coup;
+import Modele.Plateau;
 
 import java.util.Stack;
 public class Historique {

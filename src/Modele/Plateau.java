@@ -1,6 +1,7 @@
 package Modele;
 
 import Global.Config;
+import Hist.Historique;
 
 import java.util.*;
 
@@ -8,14 +9,15 @@ public class Plateau {
     int[][] plateau;
     int col;
     int row;
-
+    int turnPlayer;
     boolean fini;
-
+    Historique hist;
     public Plateau() {
         col = 5;
         row = 5;
         fini = false;
-
+        turnPlayer = 1;
+        hist = new Historique();
         plateau = new int[row][col];
         for (int i = 0; i < row; i++) {
             Arrays.fill(plateau[i], Config.GOUFRE);
@@ -26,7 +28,7 @@ public class Plateau {
         col = c;
         row = r;
         fini = false;
-
+        turnPlayer = 1;
         plateau = new int[row][col];
         for (int i = 0; i < row; i++) {
             Arrays.fill(plateau[i], Config.GOUFRE);
@@ -38,12 +40,24 @@ public class Plateau {
     }
 
     public void mange(Coup c) {
+
         if (c.x == 0 && c.y == 0)
             fini = true;
         for (int i = 0; i < row; i++)
             for (int j = 0; j < col; j++)
                 if ((i >= c.x) && (j >= c.y))
                     plateau[i][j]= Config.VIDE;
+        //Stocker le coup et l'état de la gaufre après le coup
+        hist.ajouter(c, this);
+        changeTurnPlayer();
+    }
+
+    public void changeTurnPlayer(){
+        if(this.turnPlayer == 1){
+            this.turnPlayer = 2;
+        } else if (this.turnPlayer == 2) {
+            this.turnPlayer = 1;
+        }
     }
 
     public boolean estTermine() {

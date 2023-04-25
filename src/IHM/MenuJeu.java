@@ -35,6 +35,7 @@ public class MenuJeu extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 fenetreJeu.annuler();
                 System.out.println("On annule");
+                historique.append("Le joueur " + fenetreJeu.plateauGraphique.plateau.getTurnPlayer() + " annule son coup\n");
             }
         });
         sideBar.add(annuler);
@@ -45,6 +46,7 @@ public class MenuJeu extends JPanel {
             public void actionPerformed(ActionEvent actionEvent) {
                 fenetreJeu.refaire();
                 System.out.println("On refais");
+                historique.append("Le joueur " + fenetreJeu.plateauGraphique.plateau.getTurnPlayer() + " refais son coup\n");
             }
         });
         sideBar.add(refaire);

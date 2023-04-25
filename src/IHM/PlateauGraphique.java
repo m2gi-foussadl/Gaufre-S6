@@ -15,7 +15,7 @@ import java.io.InputStream;
 
 public class PlateauGraphique extends JComponent implements MouseListener {
 
-    Image img;
+    Image img, empoi;
 
     Plateau plateau;
 
@@ -23,19 +23,22 @@ public class PlateauGraphique extends JComponent implements MouseListener {
 
     FenetreJeu fenetreJeu;
 
-    public PlateauGraphique(FenetreJeu fenetreJeu) {
+    public PlateauGraphique(FenetreJeu fenetreJeu, Plateau plateau) {
         this.fenetreJeu = fenetreJeu;
         InputStream in = null;
         try {
             in = new FileInputStream("res/Mur.png");
             img = ImageIO.read(in);
+
+            in = new FileInputStream("res/Pousseur.png");
+            empoi = ImageIO.read(in);
         } catch (FileNotFoundException e) {
             System.out.println("Lol");
         } catch (Exception e) {
             System.out.println("J'y arrive po");
         }
 
-        plateau = new Plateau();
+        this.plateau = plateau;
     }
 
     @Override
@@ -50,7 +53,7 @@ public class PlateauGraphique extends JComponent implements MouseListener {
         for (int i = 0; i < plateau.colonnes(); i++) {
             for (int j = 0; j < plateau.lignes(); j++) {
                 if (cases[i][j] != Config.VIDE) {
-                    drawable.drawImage(img, i * tailleCases, j * tailleCases, tailleCases, tailleCases, null);
+                    drawable.drawImage(i == 0 && j == 0 ? empoi : img, i * tailleCases, j * tailleCases, tailleCases, tailleCases, null);
                 }
             }
         }
@@ -61,11 +64,15 @@ public class PlateauGraphique extends JComponent implements MouseListener {
         System.out.println("Clic souris à la position : " + mouseEvent.getX() + " " + mouseEvent.getY());
         int ligne = mouseEvent.getY() / tailleCases;
         int colonne = mouseEvent.getX() / tailleCases;
-        System.out.println("Case correspondante : " + ligne + " " + colonne);
+        if (ligne < plateau.lignes() && colonne < plateau.colonnes() && plateau.grille()[ligne][colonne] != Config.VIDE) {
+            System.out.println("Case correspondante : " + ligne + " " + colonne + ", valeur : " + plateau.grille()[ligne][colonne]);
 
-        plateau.mange(new Coup(colonne, ligne));
-        fenetreJeu.refresh();
-        repaint();
+            fenetreJeu.menu.historique.append("Joueur " + plateau.getTurnPlayer() + " à la case " + ligne + " " + colonne + "\n");
+
+            plateau.mange(new Coup(colonne, ligne));
+            fenetreJeu.refresh();
+            repaint();
+        }
     }
 
     @Override

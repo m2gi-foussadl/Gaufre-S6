@@ -3,7 +3,7 @@ package Modele;
 import Global.Config;
 import Hist.Historique;
 
-import java.util.*;
+import java.util.Arrays;
 
 public class Plateau {
     int[][] plateau;
@@ -12,6 +12,7 @@ public class Plateau {
     int turnPlayer;
     boolean fini;
     Historique hist;
+
     public Plateau() {
         col = 5;
         row = 5;
@@ -37,7 +38,7 @@ public class Plateau {
 
     public Plateau(String fichier) {
         hist = new Historique();
-        this.hist.charger(fichier,this);
+        this.hist.charger(fichier, this);
     }
 
     public void mange(Coup c) {
@@ -47,14 +48,14 @@ public class Plateau {
         for (int i = 0; i < row; i++)
             for (int j = 0; j < col; j++)
                 if ((i >= c.x) && (j >= c.y))
-                    plateau[i][j]= Config.VIDE;
+                    plateau[i][j] = Config.VIDE;
         //Stocker le coup et l'état de la gaufre après le coup
-        hist.ajouter(c, this);
+//        hist.ajouter(c, this);
         changeTurnPlayer();
     }
 
-    public void changeTurnPlayer(){
-        if(this.turnPlayer == 1){
+    public void changeTurnPlayer() {
+        if (this.turnPlayer == 1) {
             this.turnPlayer = 2;
         } else if (this.turnPlayer == 2) {
             this.turnPlayer = 1;
@@ -77,11 +78,11 @@ public class Plateau {
         return plateau;
     }
 
-    public int getTurnPlayer(){
+    public int getTurnPlayer() {
         return turnPlayer;
     }
 
-    public int[][] copie(){
+    public int[][] copie() {
         int[][] newtab = new int[row][col];
         for (int i = 0; i < row; i++)
             newtab[i] = plateau[i].clone();

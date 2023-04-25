@@ -1,5 +1,7 @@
 package IHM;
 
+import Modele.Plateau;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -10,7 +12,7 @@ public class FenetreJeu {
     MenuJeu menu;
     PlateauGraphique plateauGraphique;
 
-    public FenetreJeu() {
+    public FenetreJeu(Plateau plateau) {
         frame = new JFrame("Jeu en cours");
         frame.setSize(new Dimension(1500, 800));
 
@@ -18,7 +20,7 @@ public class FenetreJeu {
         panel.setLayout(new GridLayout(1, 2, 20, 0));
         panel.setBackground(Color.white);
 
-        plateauGraphique = new PlateauGraphique(this);
+        plateauGraphique = new PlateauGraphique(this, plateau);
         frame.addMouseListener(plateauGraphique);
         panel.add(plateauGraphique);
 
@@ -30,7 +32,6 @@ public class FenetreJeu {
     }
 
     public void refresh() {
-        plateauGraphique.repaint();
         menu.refresh(this);
     }
 

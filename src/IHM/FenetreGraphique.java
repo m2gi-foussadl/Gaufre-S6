@@ -1,4 +1,6 @@
-package src.IHM;
+package IHM;
+
+import Modele.Plateau;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,43 +8,42 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
-import java.io.InputStream;
 
 public class FenetreGraphique extends JFrame {
     private JButton bouton1;
     private JButton bouton2;
     private JPanel f;
 
-    public FenetreGraphique() throws IOException, FontFormatException {
+    public FenetreGraphique(Plateau plateau) throws IOException, FontFormatException {
         // Configuration de la fenêtre principale
         setTitle("Fenêtre Principale");
 
-        InputStream inputStream = getClass().getResourceAsStream("../../DANCING JUNGLE.ttf");
-        Font policePerso = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-        policePerso = policePerso.deriveFont(Font.BOLD, 70); // Spécifier le style et la taille de la police
-        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-        ge.registerFont(policePerso); // Enregistrer la police dans le système
+//        InputStream inputStream = getClass().getResourceAsStream("res/DANCING_JUNGLE.ttf");
+//        Font policePerso = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+//        policePerso = policePerso.deriveFont(Font.BOLD, 70); // Spécifier le style et la taille de la police
+//        GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+//        ge.registerFont(policePerso); // Enregistrer la police dans le système
 
         //Ajouter du texte sur la fenetre
         JLabel label = new JLabel("GOUFRE EMPOISONNEE");
         //Agrandir la police
-        label.setFont(policePerso.deriveFont(200f));
+//        label.setFont(policePerso.deriveFont(200f));
         label.setHorizontalAlignment(JLabel.CENTER);
 
         JLabel label2 = new JLabel("CHOISISSEZ VOTRE MODE DE JEU:");
-        label2.setFont(policePerso.deriveFont(100f));
+//        label2.setFont(policePerso.deriveFont(100f));
         label2.setHorizontalAlignment(JLabel.CENTER);
 
         // Création des boutons
-        bouton1 = new JButton("PLAYER VS PLAYER"){
+        bouton1 = new JButton("PLAYER VS PLAYER") {
             @Override
             protected void paintComponent(Graphics g) {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setClip(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
-            super.paintComponent(g);
-        }
+                Graphics2D g2 = (Graphics2D) g;
+                g2.setClip(new RoundRectangle2D.Double(0, 0, getWidth(), getHeight(), 30, 30));
+                super.paintComponent(g);
+            }
         };
-        bouton1.setFont(policePerso); // Appliquer la police personnalisée au bouton 1
+//        bouton1.setFont(policePerso); // Appliquer la police personnalisée au bouton 1
         bouton1.setPreferredSize(new Dimension(500, 100));
         //enlever le contour du bouton
         bouton1.setBorderPainted(false);
@@ -56,7 +57,7 @@ public class FenetreGraphique extends JFrame {
                 super.paintComponent(g);
             }
         };
-        bouton2.setFont(policePerso);
+//        bouton2.setFont(policePerso);
         bouton2.setPreferredSize(new Dimension(500, 100));
         bouton2.setBorderPainted(false);
         bouton2.setFocusPainted(false);
@@ -89,8 +90,9 @@ public class FenetreGraphique extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 // Action à effectuer lorsque le bouton 1 est cliqué
-                FenetreSecondaire fenetre2 = new FenetreSecondaire("Fenêtre 2");
-                fenetre2.setVisible(true);
+                setVisible(false);
+                setEnabled(false);
+                FenetreJeu jeu = new FenetreJeu(plateau);
             }
         });
 
@@ -110,20 +112,14 @@ public class FenetreGraphique extends JFrame {
         setLocationRelativeTo(null); // Centre la fenêtre sur l'écran
     }
 
-    public static void main(String[] args) throws IOException, FontFormatException {
-        // Création et affichage de la fenêtre principale
-        FenetreGraphique fenetre1 = new FenetreGraphique();
-        fenetre1.setVisible(true);
-    }
-}
-
-class FenetreSecondaire extends JFrame {
-    public FenetreSecondaire(String title) {
-        // Configuration de la fenêtre secondaire
-        setTitle(title);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        setSize(screenSize.width, screenSize.height);
-        setLocationRelativeTo(null); // Centre la fenêtre sur l'écran
+    private class FenetreSecondaire extends JFrame {
+        public FenetreSecondaire(String title) {
+            // Configuration de la fenêtre secondaire
+            setTitle(title);
+            setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+            Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+            setSize(screenSize.width, screenSize.height);
+            setLocationRelativeTo(null); // Centre la fenêtre sur l'écran
+        }
     }
 }
